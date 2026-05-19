@@ -1,11 +1,31 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import gym from './assets/gym.png'
-import gym2 from './assets/gym2.png'
+import gym2 from './assets/gym3.png'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
+  const [animatedStats, setAnimatedStats] = useState({
+    satisfied: 0,
+    equipment: 0,
+    trainers: 0,
+    members: 0
+  })
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const statsRef = useRef(null)
+
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault()
+    const targetElement = document.getElementById(targetId)
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' })
+      setIsMenuOpen(false)
+    } else if (targetId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      setIsMenuOpen(false)
+    }
+  }
 
   const testimonials = [
     {
@@ -71,6 +91,55 @@ function App() {
     }
   }, [])
 
+  useEffect(() => {
+    const animateValue = (start, end, duration, callback) => {
+      let startTimestamp = null
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1)
+        callback(Math.floor(progress * (end - start) + start))
+        if (progress < 1) {
+          window.requestAnimationFrame(step)
+        }
+      }
+      window.requestAnimationFrame(step)
+    }
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          
+          animateValue(0, 98, 2000, (value) => {
+            setAnimatedStats(prev => ({ ...prev, satisfied: value }))
+          })
+          
+          animateValue(0, 100, 2000, (value) => {
+            setAnimatedStats(prev => ({ ...prev, equipment: value }))
+          })
+          
+          animateValue(0, 10, 2000, (value) => {
+            setAnimatedStats(prev => ({ ...prev, trainers: value }))
+          })
+          
+          animateValue(0, 1000, 2000, (value) => {
+            setAnimatedStats(prev => ({ ...prev, members: value }))
+          })
+        }
+      })
+    }, { threshold: 0.5 })
+
+    if (statsRef.current) {
+      statsObserver.observe(statsRef.current)
+    }
+
+    return () => {
+      if (statsRef.current) {
+        statsObserver.unobserve(statsRef.current)
+      }
+    }
+  }, [hasAnimated])
+
   return (
     <div className="app">
       <nav className="navbar">
@@ -82,11 +151,11 @@ function App() {
           </svg>
         </div>
         <div className={`nav-links ${isMenuOpen ? 'active' : ''}`}>
-          <a href="#" className="nav-link">Home</a>
-          <a href="#about" className="nav-link">About</a>
-          <a href="#program" className="nav-link">Program</a>
-          <a href="#coaches" className="nav-link">Coaching</a>
-          <button className="contact-btn">Contact</button>
+          <a href="#" className="nav-link" onClick={(e) => handleSmoothScroll(e, 'home')}>Home</a>
+          <a href="#about" className="nav-link" onClick={(e) => handleSmoothScroll(e, 'about')}>About</a>
+          <a href="#program" className="nav-link" onClick={(e) => handleSmoothScroll(e, 'program')}>Program</a>
+          <a href="#coaches" className="nav-link" onClick={(e) => handleSmoothScroll(e, 'coaches')}>Coaching</a>
+          <button className="contact-btn" onClick={() => { setIsMenuOpen(false); handleSmoothScroll({ preventDefault: () => {} }, 'contact') }}>Contact</button>
         </div>
         <button className="hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           <span></span>
@@ -116,7 +185,7 @@ function App() {
 
       <section className="about-us" id="about">
         <div className="about-us-image fade-in-left">
-          <img src={gym2} alt="About Us" />
+          <img src="https://imgs.search.brave.com/QVWQetisuzZ2jk1pQIYHMkAJTqU6BvDbsTon48EKwh4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMucGV4ZWxzLmNv/bS9waG90b3MvMzIw/ODUzMzIvcGV4ZWxz/LXBob3RvLTMyMDg1/MzMyL2ZyZWUtcGhv/dG8tb2YtcG93ZXJm/dWwtYm9keWJ1aWxk/ZXItcG9zaW5nLWlu/LWRhcmstZ3ltLmpw/ZWc_YXV0bz1jb21w/cmVzcyZjcz10aW55/c3JnYiZkcHI9MSZ3/PTUwMA" alt="About Us" />
         </div>
         <div className="about-us-content fade-in-right">
           <h2 className="section-title">WHO WE ARE</h2>
@@ -133,7 +202,7 @@ function App() {
             and high-energy training spaces, we help you achieve your
             fitness goals faster and smarter.
           </p>
-          <button className="read-more-btn">READ MORE</button>
+       <button className="read-more-btn">READ MORE</button>
         </div>
       </section>
 
@@ -176,21 +245,21 @@ function App() {
         </div>
       </section>
 
-      <section className="statistics">
+      <section className="statistics" ref={statsRef}>
         <div className="stat-item fade-in">
-          <h3 className="stat-number">98%</h3>
+          <h3 className="stat-number">{animatedStats.satisfied}%</h3>
           <p className="stat-label">SATISFIED CLIENTS</p>
         </div>
         <div className="stat-item fade-in">
-          <h3 className="stat-number">100+</h3>
+          <h3 className="stat-number">{animatedStats.equipment}+</h3>
           <p className="stat-label">EQUIPMENT</p>
         </div>
         <div className="stat-item fade-in">
-          <h3 className="stat-number">10+</h3>
+          <h3 className="stat-number">{animatedStats.trainers}+</h3>
           <p className="stat-label">TRAINERS</p>
         </div>
         <div className="stat-item fade-in">
-          <h3 className="stat-number">1000+</h3>
+          <h3 className="stat-number">{animatedStats.members}+</h3>
           <p className="stat-label">MEMBERS</p>
         </div>
       </section>
@@ -212,18 +281,18 @@ function App() {
         <div className="coaches-grid">
           <div className="coach-card scale-in">
             <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=400&q=80" alt="Rajavel" />
-            <h4>RAJAVEL</h4>
-            <p>FOUNDER & TRAINER</p>
+            <h4 style={{ color: '#ffffff' }}>RAJAVEL</h4>
+            <p style={{ color: '#f97316' }}>FOUNDER & TRAINER</p>
           </div>
           <div className="coach-card scale-in">
             <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="David Raj" />
-            <h4>DAVID RAJ</h4>
-            <p>ASSISTANT COACH</p>
+            <h4 style={{ color: '#ffffff' }}>DAVID RAJ</h4>
+            <p style={{ color: '#f97316' }}>ASSISTANT COACH</p>
           </div>
           <div className="coach-card scale-in">
             <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=400&q=80" alt="Vijay Priyan" />
-            <h4>VIJAY PRIYAN</h4>
-            <p>JUNIOR TRAINER</p>
+            <h4 style={{ color: '#ffffff' }}>VIJAY PRIYAN</h4>
+            <p style={{ color: '#f97316' }}>JUNIOR TRAINER</p>
           </div>
         </div>
       </section>
