@@ -208,8 +208,8 @@ function App() {
 
       <section className="services" id="program">
         <div className="services-header fade-in">
-          <h2 className="section-title">OUR SERVICES</h2>
-          <h3 className="services-subtitle">TRAINING PROGRAM</h3>
+          <h4 className="section-title">OUR SERVICES</h4>
+          <h2 className="services-subtitle">TRAINING PROGRAM</h2>
         </div>
         <div className="services-grid">
           <div className="service-card scale-in">

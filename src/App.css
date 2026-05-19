@@ -227,10 +227,10 @@
 }
 
 .section-title {
-  font-size: 48px;
+  font-size: 40px;
   font-weight: 800;
   color: var(--accent);
-  margin: 0 0 24px 0;
+  margin: 0 0 5px 0;
   letter-spacing: 2px;
 }
 
@@ -261,6 +261,8 @@
 
 .services {
   padding: 80px 150px;
+  margin-top: -40px;
+  margin-bottom: 20px;
 }
 
 .services-header {
@@ -269,8 +271,8 @@
 }
 
 .services-subtitle {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 48px;
+  font-weight: 900;
   color: #ffffff;
   margin: 8px 0 0 0;
   opacity: 0.9;
@@ -307,18 +309,23 @@
 }
 
 .service-card h4 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 20px 20px 12px 20px;
+  font-size: 20px;
+  font-weight: 900;
+  color:#ea580c;;
+  margin: 15px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
 }
 
 .service-card p {
-  font-size: 14px;
+  font-size: 13px;
   color: #ffffff;
   margin: 0 20px 20px 20px;
-  opacity: 0.8;
+  opacity: 0.5;
   line-height: 1.6;
+  font-weight:300;
+
 }
 
 /* Statistics Section */
@@ -361,7 +368,6 @@
 }
 
 .cta-content {
-  max-width: 700px;
   text-align: center;
 }
 
@@ -588,7 +594,7 @@
   .hero {
     flex-direction: column;
     padding: 40px 30px;
-    gap: 40px;
+    gap: 30px;
   }
 
   .hero-content {
@@ -596,7 +602,7 @@
   }
 
   .hero-title {
-    font-size: 48px;
+    font-size: 50px;
   }
 
   .hero-subtitle {
@@ -629,6 +635,7 @@
 }
   .services {
     padding: 60px 30px;
+  
   }
 
   .services-grid {
