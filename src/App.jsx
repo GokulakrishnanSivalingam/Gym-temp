@@ -245,6 +245,84 @@ function App() {
           <button className="nav-arrow next-arrow" onClick={nextTestimonial}>→</button>
         </div>
       </section>
+
+      <section className="contact-section">
+        <div className="contact-left fade-in-left">
+          <div className="contact-info-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 16.92V19.92C22.0011 20.1985 21.9441 20.4742 21.8325 20.7293C21.7209 20.9845 21.5573 21.2136 21.3521 21.4019C21.1468 21.5901 20.9046 21.7335 20.6407 21.8227C20.3769 21.9119 20.0974 21.9455 19.82 21.92C16.7428 21.5857 13.787 20.5341 11.19 18.84C8.77382 17.2914 6.72538 15.2429 5.17679 12.8268C3.47999 10.2214 2.42823 7.25523 2.09999 4.18C2.0745 3.90356 2.1077 3.62504 2.1962 3.36192C2.2847 3.0988 2.42707 2.85716 2.61422 2.65223C2.80138 2.4473 3.02934 2.28366 3.28342 2.17172C3.5375 2.05978 3.81219 2.00212 4.08999 2.002H7.08999C7.58344 1.99522 8.06057 2.17821 8.42512 2.51751C8.78967 2.85681 9.01409 3.32728 9.05999 3.82C9.14612 4.8036 9.34348 5.77374 9.64999 6.71C9.76661 7.06172 9.79153 7.43728 9.72206 7.80119C9.65259 8.16511 9.49123 8.50434 9.25399 8.786L8.02999 10.01C9.43256 12.5305 11.4925 14.5904 14.013 15.993L15.237 14.769C15.5187 14.5318 15.8579 14.3704 16.2218 14.3009C16.5857 14.2315 16.9613 14.2564 17.313 14.373C18.2493 14.6795 19.2194 14.8769 20.203 14.963C20.6999 15.0094 21.1733 15.2372 21.513 15.6066C21.8527 15.976 22.0316 16.4569 22.02 16.952L22 16.92Z" fill="white"/>
+            </svg>
+            <p>+91 9765132939</p>
+          </div>
+          <div className="contact-info-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="white"/>
+            </svg>
+            <p>vfitnesstudio@gmail.com</p>
+          </div>
+          <div className="contact-info-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="white"/>
+            </svg>
+            <p>Main Road Redhills, Avadi</p>
+          </div>
+        </div>
+        <div className="contact-right fade-in-right">
+          <h2 className="contact-heading">CONTACT</h2>
+          <form className="contact-form">
+            <input type="text" placeholder="Enter your Name" className="contact-input" />
+            <input type="email" placeholder="Enter your Email" className="contact-input" />
+            <textarea placeholder="Enter your Message" className="contact-input contact-textarea" rows="4"></textarea>
+            <button type="submit" className="contact-submit-btn">SUBMIT</button>
+          </form>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="footer-left">
+          <div className="footer-logo">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="5" y="18" width="30" height="4" rx="2" fill="#f97316"/>
+              <rect x="8" y="10" width="6" height="20" rx="3" fill="#ffffff"/>
+              <rect x="26" y="10" width="6" height="20" rx="3" fill="#ffffff"/>
+            </svg>
+          </div>
+          <h3 className="footer-tagline">Train Hard. Stay Strong. Live Healthy.</h3>
+          <p className="footer-description">
+            Transform your body and mind with professional training, modern equipment, and a motivating fitness environment.
+          </p>
+        </div>
+        <div className="footer-middle-left">
+          <h4 className="footer-heading">Quick Links</h4>
+          <ul className="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#program">Programs</a></li>
+            <li><a href="#coaches">Trainers</a></li>
+            <li><a href="#">Membership</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div className="footer-middle-right">
+          <h4 className="footer-heading">Supports</h4>
+          <ul className="footer-links">
+            <li><a href="#">Login</a></li>
+            <li><a href="#">My account</a></li>
+            <li><a href="#">Subscribe</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div className="footer-right">
+          <h4 className="footer-heading">News Letter</h4>
+          <div className="newsletter-form">
+            <input type="email" placeholder="Enter Your Email" className="newsletter-input" />
+            <button className="newsletter-btn">SUBSCRIBE</button>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>Copyright ©2026 All rights reserved by VFit Studio</p>
+        </div>
+      </footer>
     </div>
   )
 }
