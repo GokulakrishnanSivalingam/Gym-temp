@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import gym from './assets/gym.png'
+import c1 from './assets/coach.png'
+import c2 from './assets/coach1.png'
+import c3 from './assets/coach2.png'
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -330,9 +333,9 @@ function App() {
         </div>
         <div className="coaches-grid">
           {[
-            { img: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=500&q=80", name: "RAJAVEL", role: "FOUNDER & TRAINER", exp: "10+ yrs" },
-            { img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80", name: "DAVID RAJ", role: "ASSISTANT COACH", exp: "6+ yrs" },
-            { img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=500&q=80", name: "VIJAY PRIYAN", role: "JUNIOR TRAINER", exp: "3+ yrs" },
+            { img:c1, name: "RAJAVEL", role: "FOUNDER & TRAINER", exp: "10+ yrs" },
+            { img: c2, name: "DAVID RAJ", role: "ASSISTANT COACH", exp: "6+ yrs" },
+            { img: c3, name: "VIJAY PRIYAN", role: "JUNIOR TRAINER", exp: "3+ yrs" },
           ].map((c, i) => (
             <div className="coach-card scale-in" key={i} style={{ transitionDelay: `${i * 120}ms` }}>
               {/* Circular photo */}

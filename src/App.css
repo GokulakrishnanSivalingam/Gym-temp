@@ -1250,7 +1250,8 @@ body {
   }
 
   .hero-title {
-    font-size: clamp(44px, 8vw, 70px);
+    font-size: clamp(40px, 8vw, 70px);
+    margin-top: -20px;
   }
 
   .hero-subtitle {
