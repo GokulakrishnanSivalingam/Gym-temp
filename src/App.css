@@ -30,6 +30,11 @@ body {
   font-family: 'Segoe UI', system-ui, sans-serif;
   overflow-x: hidden;
 }
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
 
 .app {
   width: 100%;
@@ -45,6 +50,7 @@ body {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  will-change: opacity, transform;
 }
 
 .fade-in.visible {
@@ -56,6 +62,7 @@ body {
   opacity: 0;
   transform: translateX(-60px);
   transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  will-change: opacity, transform;
 }
 
 .fade-in-left.visible {
@@ -67,6 +74,7 @@ body {
   opacity: 0;
   transform: translateX(60px);
   transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  will-change: opacity, transform;
 }
 
 .fade-in-right.visible {
@@ -78,6 +86,7 @@ body {
   opacity: 0;
   transform: scale(0.88) translateY(24px);
   transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+  will-change: opacity, transform;
 }
 
 .scale-in.visible {
@@ -428,6 +437,7 @@ body {
   z-index: 1;
   margin-top: -60px;
   margin-left: 100px;
+  max-width: 600px;
 }
 
 .hero-badge {
@@ -523,6 +533,7 @@ body {
   align-items: center;
   position: relative;
   z-index: 1;
+  max-width: 100%;
 }
 
 .hero-image img {
@@ -531,6 +542,7 @@ body {
   border-radius: 20px;
   filter: grayscale(100%);
   transition: filter 0.5s ease, transform 0.5s ease;
+  object-fit: contain;
 }
 
 .hero-image img:hover {
@@ -1229,7 +1241,8 @@ body {
   .hero-content {
     text-align: center;
     margin-left: 0;
-    margin-top: -20px;
+    margin-top: 0;
+    max-width: 100%;
   }
 
   .hero-actions {
@@ -1337,11 +1350,13 @@ body {
   .hero {
     padding: calc(var(--nav-height) + 20px) 20px 56px;
     gap: 32px;
+    min-height: auto;
   }
 
   .hero-title {
-    font-size: clamp(38px, 11vw, 56px);
+    font-size: clamp(32px, 10vw, 48px);
     letter-spacing: 1px;
+    line-height: 1.1;
   }
 
   .hero-subtitle {
@@ -1431,7 +1446,7 @@ body {
   .coaches-grid {
     grid-template-columns: 1fr;
     gap: 28px;
-    max-width: 340px;
+    max-width: 100%;
   }
 
   .coach-photo-ring {
