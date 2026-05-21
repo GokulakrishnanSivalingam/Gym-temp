@@ -19,11 +19,22 @@ function App() {
   const [hasAnimated, setHasAnimated] = useState(false)
   const statsRef = useRef(null)
 
+  // ── SPLASH STATE ──
+  const [splashVisible, setSplashVisible] = useState(true)
+  const [splashExit, setSplashExit] = useState(false)
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setSplashExit(true), 3000)
+    const t2 = setTimeout(() => setSplashVisible(false), 3800)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [])
+
   const navLinks = [
     { id: 'home', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'program', label: 'Program' },
     { id: 'coaches', label: 'Coaching' },
+    { id: 'membership', label: 'Membership' },
   ]
 
   const handleSmoothScroll = (e, targetId) => {
@@ -42,7 +53,7 @@ function App() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
-      const sections = ['home', 'about', 'program', 'coaches', 'contact']
+      const sections = ['home', 'about', 'program', 'coaches', 'membership', 'contact']
       let current = 'home'
       sections.forEach(id => {
         const el = id === 'home' ? null : document.getElementById(id)
@@ -111,7 +122,7 @@ function App() {
     const els = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in, .stagger-child')
     els.forEach(el => observer.observe(el))
     return () => els.forEach(el => observer.unobserve(el))
-  }, [])
+  }, [splashVisible])
 
   /* ── Stat counter animation ── */
   useEffect(() => {
@@ -141,8 +152,96 @@ function App() {
     return () => { if (statsRef.current) statsObserver.unobserve(statsRef.current) }
   }, [hasAnimated])
 
+  const membershipPlans = [
+    {
+      name: 'BASIC',
+      price: '999',
+      period: '/month',
+      badge: null,
+      color: 'basic',
+      features: [
+        { text: 'Access to gym floor', included: true },
+        { text: 'Locker room access', included: true },
+        { text: 'Basic equipment use', included: true },
+        { text: 'Group classes (2/week)', included: true },
+        { text: 'Personal trainer', included: false },
+        { text: 'Nutrition consultation', included: false },
+        { text: 'Guest passes', included: false },
+        { text: 'Priority booking', included: false },
+      ]
+    },
+    {
+      name: 'STANDARD',
+      price: '1,799',
+      period: '/month',
+      badge: 'MOST POPULAR',
+      color: 'standard',
+      features: [
+        { text: 'Access to gym floor', included: true },
+        { text: 'Locker room access', included: true },
+        { text: 'All equipment use', included: true },
+        { text: 'Unlimited group classes', included: true },
+        { text: '2 PT sessions/month', included: true },
+        { text: 'Nutrition consultation', included: true },
+        { text: 'Guest passes', included: false },
+        { text: 'Priority booking', included: false },
+      ]
+    },
+    {
+      name: 'PREMIUM',
+      price: '2,999',
+      period: '/month',
+      badge: 'BEST VALUE',
+      color: 'premium',
+      features: [
+        { text: 'Access to gym floor', included: true },
+        { text: 'Locker room access', included: true },
+        { text: 'All equipment use', included: true },
+        { text: 'Unlimited group classes', included: true },
+        { text: 'Unlimited PT sessions', included: true },
+        { text: 'Nutrition consultation', included: true },
+        { text: '2 Guest passes/month', included: true },
+        { text: 'Priority booking', included: true },
+      ]
+    }
+  ]
+
   return (
     <div className="app">
+
+      {/* ── SPLASH SCREEN ── */}
+      {splashVisible && (
+        <div className={`splash ${splashExit ? 'splash--exit' : ''}`}>
+          {/* Animated bars bg */}
+          <div className="splash-bars">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="splash-bar-line" style={{ animationDelay: `${i * 0.1}s` }} />
+            ))}
+          </div>
+
+          {/* Image reveal */}
+          <div className="splash-img-wrap">
+            <img src={gym} alt="VFit Studio" className="splash-img" />
+            <div className="splash-img-overlay" />
+          </div>
+
+          {/* Brand */}
+          <div className="splash-brand">
+            <div className="splash-logo-row">
+              <svg width="48" height="48" viewBox="0 0 40 40" fill="none">
+                <rect x="5" y="18" width="30" height="4" rx="2" fill="#f97316" />
+                <rect x="8" y="10" width="6" height="20" rx="3" fill="#ffffff" />
+                <rect x="26" y="10" width="6" height="20" rx="3" fill="#ffffff" />
+              </svg>
+              <span className="splash-name">V<span>FIT</span></span>
+            </div>
+            <p className="splash-tagline">Train Hard. Stay Strong. Live Healthy.</p>
+            <div className="splash-progress">
+              <div className="splash-progress-fill" />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ── NAVBAR ── */}
       <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
@@ -319,8 +418,8 @@ function App() {
             the way. Our flexible plans give you access to expert training, modern equipment, and a
             powerful fitness community.
           </p>
-          <button className="cta-btn" onClick={e => handleSmoothScroll({ preventDefault: () => { } }, 'contact')}>
-            START MEMBERSHIP
+          <button className="cta-btn" onClick={e => handleSmoothScroll({ preventDefault: () => { } }, 'membership')}>
+            VIEW MEMBERSHIP
           </button>
         </div>
       </section>
@@ -333,12 +432,11 @@ function App() {
         </div>
         <div className="coaches-grid">
           {[
-            { img:c1, name: "RAJAVEL", role: "FOUNDER & TRAINER", exp: "10+ yrs" },
+            { img: c1, name: "RAJAVEL", role: "FOUNDER & TRAINER", exp: "10+ yrs" },
             { img: c2, name: "DAVID RAJ", role: "ASSISTANT COACH", exp: "6+ yrs" },
             { img: c3, name: "VIJAY PRIYAN", role: "JUNIOR TRAINER", exp: "3+ yrs" },
           ].map((c, i) => (
             <div className="coach-card scale-in" key={i} style={{ transitionDelay: `${i * 120}ms` }}>
-              {/* Circular photo */}
               <div className="coach-photo-ring">
                 <div className="coach-photo-wrap">
                   <img src={c.img} alt={c.name} />
@@ -349,6 +447,70 @@ function App() {
                 <p className="coach-role">{c.role}</p>
                 <span className="coach-exp">{c.exp} experience</span>
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── MEMBERSHIP ── */}
+      <section className="membership" id="membership">
+        <div className="membership-header fade-in">
+          <h4 className="section-title">PRICING PLANS</h4>
+          <h2 className="membership-subtitle">CHOOSE YOUR PLAN</h2>
+          <p className="membership-desc">
+            Flexible memberships designed for every fitness level and goal. No hidden fees, cancel anytime.
+          </p>
+        </div>
+
+        <div className="membership-grid">
+          {membershipPlans.map((plan, i) => (
+            <div
+              key={i}
+              className={`plan-card scale-in plan-card--${plan.color} ${plan.badge === 'MOST POPULAR' ? 'plan-card--featured' : ''}`}
+              style={{ animationDelay: `${i * 120}ms` }}
+            >
+              {plan.badge && (
+                <div className={`plan-badge plan-badge--${plan.color}`}>{plan.badge}</div>
+              )}
+
+              <div className="plan-header">
+                <h3 className="plan-name">{plan.name}</h3>
+                <div className="plan-price-row">
+                  <span className="plan-currency">₹</span>
+                  <span className="plan-price">{plan.price}</span>
+                  <span className="plan-period">{plan.period}</span>
+                </div>
+              </div>
+
+              <div className="plan-divider" />
+
+              <ul className="plan-features">
+                {plan.features.map((f, j) => (
+                  <li key={j} className={`plan-feature ${f.included ? 'plan-feature--yes' : 'plan-feature--no'}`}>
+                    <span className="plan-feature-icon">
+                      {f.included ? (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                          <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.15" />
+                          <path d="M7 12.5l3.5 3.5 6.5-7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      ) : (
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                          <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.1" />
+                          <path d="M15 9l-6 6M9 9l6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                        </svg>
+                      )}
+                    </span>
+                    {f.text}
+                  </li>
+                ))}
+              </ul>
+
+              <button
+                className={`plan-btn plan-btn--${plan.color}`}
+                onClick={e => handleSmoothScroll({ preventDefault: () => {} }, 'contact')}
+              >
+                GET STARTED
+              </button>
             </div>
           ))}
         </div>
@@ -428,7 +590,7 @@ function App() {
             <li><a href="#about">About</a></li>
             <li><a href="#program">Programs</a></li>
             <li><a href="#coaches">Trainers</a></li>
-            <li><a href="#">Membership</a></li>
+            <li><a href="#membership">Membership</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
